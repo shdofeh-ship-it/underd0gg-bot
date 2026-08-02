@@ -2,67 +2,46 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div class="background"></div>
 <div class="grid"></div>
 <div class="scanline"></div>
-
 <div class="container">
-
     <div class="status-card">
-        <div class="status-left">
-            <span class="pulse"></span>
-            <span>СТАТУС СТРИМА</span>
-        </div>
+        <div class="status-left"><span class="pulse"></span><span>СТАТУС СТРИМА</span></div>
         <div class="status-right">НЕ В ЭФИРЕ</div>
     </div>
-
     <h1 class="logo">UNDERDOGG</h1>
-
-    <!-- ===== ЭТО ЕДИНСТВЕННАЯ ПОЛОСКА ===== -->
     <div class="custom-line"></div>
-
     <div class="subtitle">NO FACE.<br>NO LIMITS.</div>
-
-    <div class="hero">
-        <div class="hero-glow"></div>
-        <img src="images/hood.png" alt="UNDERDOGG">
-    </div>
-
+    <div class="hero"><div class="hero-glow"></div><img src="images/hood.png" alt="UNDERDOGG"></div>
     <button class="menu-btn"><span>🎁 Участвовать в розыгрыше</span><span>›</span></button>
     <button class="menu-btn"><span>📊 Статистика розыгрышей</span><span>›</span></button>
     <button class="menu-btn"><span>🔗 Ссылки на проекты</span><span>›</span></button>
     <button class="menu-btn"><span>👤 Пригласить друга</span><span>›</span></button>
-
     <div class="footer">UNDERDOGG SYSTEM</div>
-
 </div>
-
 <script src="script.js"></script>
-
 <style>
 .custom-line {
     width: 68px;
     height: 4px;
-    margin: -1px auto 15px;
+    margin: -0.2px auto 15px;
     border-radius: 2px;
     background: #ff1010;
-    box-shadow: 0 0 6px #ff1010, 0 0 16px rgba(255, 0, 0, 0.85), 0 0 30px rgba(255, 0, 0, 0.45);
+    box-shadow: 0 0 6px #ff1010, 0 0 16px rgba(255,0,0,0.85), 0 0 30px rgba(255,0,0,0.45);
     animation: lineBlink 2s ease-in-out infinite;
 }
-
 @keyframes lineBlink {
     0%, 100% { opacity: .45; transform: scaleX(.82); }
     50% { opacity: 1; transform: scaleX(1); }
 }
 </style>
-
 </body>
 </html>
