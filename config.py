@@ -1,19 +1,28 @@
 import os
 from dotenv import load_dotenv
 
+# Загружаем переменные окружения
 load_dotenv()
 
+# Токен бота
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
+# ID администраторов (через запятую)
 ADMIN_IDS = [
-    int(x) for x in os.getenv("ADMIN_IDS", "").split(",")
+    int(x)
+    for x in os.getenv("ADMIN_IDS", "").split(",")
     if x.strip()
 ]
 
-KICK_URL = os.getenv("KICK_URL")
+# Ссылки (пока заглушки)
+KICK_URL = "https://kick.com/underd0gg"
 
-YOUTUBE_SHORT_1 = os.getenv("YOUTUBE_SHORT_1")
-YOUTUBE_SHORT_2 = os.getenv("YOUTUBE_SHORT_2")
+YOUTUBE_SHORTS = [
+    "https://youtube.com/shorts/VIDEO1",
+    "https://youtube.com/shorts/VIDEO2",
+]
 
-TIKTOK_1 = os.getenv("TIKTOK_1")
-TIKTOK_2 = os.getenv("TIKTOK_2")
+TIKTOK = [
+    "https://tiktok.com/@underd0gg/video1",
+    "https://tiktok.com/@underd0gg/video2",
+]
