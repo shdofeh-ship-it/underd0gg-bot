@@ -1,3 +1,14 @@
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    transition:1s;
+
+}
 *{
     margin:0;
     padding:0;
