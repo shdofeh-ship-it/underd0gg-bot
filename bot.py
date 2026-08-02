@@ -11,7 +11,7 @@ from database import init_db
 from handlers.start import router as start_router
 from handlers.menu import router as menu_router
 from handlers.profile import router as profile_router
-
+from handlers.giveaways import router as giveaways_router
 
 async def main():
     logging.basicConfig(
