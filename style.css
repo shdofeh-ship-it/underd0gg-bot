@@ -1,151 +1,659 @@
+/* =========================
+   UNDERDOGG UI v2.0
+========================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-body{
-    font-family:Arial,sans-serif;
-    background:#050505;
-    color:white;
-    overflow-x:hidden;
+html{
+    scroll-behavior:smooth;
 }
+
+body{
+
+    font-family:'Inter',sans-serif;
+
+    background:#050505;
+
+    color:#fff;
+
+    overflow-x:hidden;
+
+}
+
+/* BACKGROUND */
 
 .background{
+
     position:fixed;
+
     inset:0;
+
     background:
-    radial-gradient(circle at center,#300000 0%,#120000 40%,#050505 80%);
-    z-index:-3;
+    radial-gradient(circle at center,#290000 0%,#120000 40%,#050505 85%);
+
+    z-index:-5;
+
 }
 
-.background::before{
-    content:"";
-    position:absolute;
+.grid{
+
+    position:fixed;
+
     inset:0;
+
     background-image:
-    linear-gradient(rgba(255,0,0,.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,0,0,.05) 1px,transparent 1px);
-    background-size:40px 40px;
+
+    linear-gradient(rgba(255,0,0,.04) 1px,transparent 1px),
+
+    linear-gradient(90deg,rgba(255,0,0,.04) 1px,transparent 1px);
+
+    background-size:42px 42px;
+
+    opacity:.35;
+
+    z-index:-4;
+
 }
 
 .scanline{
+
     position:fixed;
+
     inset:0;
-    background:repeating-linear-gradient(
-        to bottom,
-        transparent 0px,
-        transparent 3px,
-        rgba(255,0,0,.03) 4px
-    );
+
     pointer-events:none;
-    animation:scan 6s linear infinite;
+
+    background:
+
+    repeating-linear-gradient(
+
+        to bottom,
+
+        transparent 0px,
+
+        transparent 3px,
+
+        rgba(255,255,255,.015) 4px
+
+    );
+
+    animation:scan 8s linear infinite;
+
+    z-index:100;
+
 }
 
 @keyframes scan{
-    from{transform:translateY(-100%);}
-    to{transform:translateY(100%);}
+
+0%{
+
+transform:translateY(-100%);
+
 }
+
+100%{
+
+transform:translateY(100%);
+
+}
+
+}
+
+/* CONTAINER */
 
 .container{
+
     width:92%;
-    max-width:420px;
+
+    max-width:430px;
+
     margin:auto;
-    padding:25px 0 40px;
+
+    padding:24px 0 50px;
+
 }
 
-.stream-status{
+/* STATUS */
+
+.status-card{
+
     display:flex;
+
+    justify-content:space-between;
+
     align-items:center;
-    justify-content:center;
-    gap:12px;
-    border:1px solid rgba(255,0,0,.5);
+
+    padding:18px 22px;
+
     border-radius:18px;
-    padding:16px;
-    background:rgba(40,0,0,.4);
-    box-shadow:0 0 20px rgba(255,0,0,.15);
+
+    border:1px solid rgba(255,0,0,.35);
+
+    background:rgba(25,0,0,.45);
+
+    backdrop-filter:blur(14px);
+
+    box-shadow:
+
+    0 0 20px rgba(255,0,0,.12);
+
 }
 
-.dot{
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    background:#ff0000;
-    box-shadow:0 0 15px red;
+.status-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:14px;
+
+    letter-spacing:2px;
+
 }
 
-.state{
+.status-right{
+
     color:#ff4040;
-    font-weight:bold;
+
+    font-weight:700;
+
 }
+
+.pulse{
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    background:#ff0000;
+
+    animation:pulse 1.5s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+
+box-shadow:0 0 0 rgba(255,0,0,.8);
+
+}
+
+50%{
+
+box-shadow:
+
+0 0 10px red,
+
+0 0 25px red;
+
+}
+
+100%{
+
+box-shadow:0 0 0 rgba(255,0,0,.8);
+
+}
+
+}
+
+/* LOGO */
 
 .logo{
-    margin-top:40px;
-    text-align:center;
-    font-size:64px;
-    letter-spacing:3px;
-    color:white;
-    text-shadow:
-    0 0 10px red,
-    0 0 20px red,
-    0 0 35px red;
-}
 
-.slogan{
+    margin-top:38px;
+
     text-align:center;
-    margin:20px 0 30px;
-    color:#bdbdbd;
+
+    font-family:'Orbitron',sans-serif;
+
+    font-size:54px;
+
     letter-spacing:5px;
-    line-height:1.8;
+
+    color:#fff;
+
+    text-shadow:
+
+    0 0 12px red,
+
+    0 0 25px red,
+
+    0 0 45px rgba(255,0,0,.6);
+
+    animation:glitch 6s infinite;
+
 }
 
-.hood{
+@keyframes glitch{
+
+0%,95%,100%{
+
+transform:none;
+
+}
+
+96%{
+
+transform:translateX(-2px);
+
+}
+
+97%{
+
+transform:translateX(2px);
+
+}
+
+98%{
+
+transform:translateX(-1px);
+
+}
+
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#a9a9a9;
+
+    margin-top:15px;
+
+    line-height:1.9;
+
+    letter-spacing:6px;
+
+}
+
+/* HERO */
+
+.hero{
+
+    position:relative;
+
     display:flex;
+
     justify-content:center;
-    margin-bottom:35px;
+
+    margin:38px 0;
+
 }
 
-.hood img{
+.hero-glow{
+
+    position:absolute;
+
     width:240px;
-    filter:
-    drop-shadow(0 0 20px red)
-    drop-shadow(0 0 45px rgba(255,0,0,.5));
+
+    height:240px;
+
+    border-radius:50%;
+
+    background:
+
+    radial-gradient(circle,
+
+    rgba(255,0,0,.30),
+
+    transparent 70%);
+
+    filter:blur(25px);
+
+    animation:breathe 4s ease-in-out infinite;
+
 }
+
+.hero img{
+
+    position:relative;
+
+    width:235px;
+
+    z-index:2;
+
+    animation:float 5s ease-in-out infinite;
+
+    filter:
+
+    drop-shadow(0 0 18px rgba(255,0,0,.55))
+
+    drop-shadow(0 0 45px rgba(255,0,0,.35));
+
+}
+
+@keyframes breathe{
+
+0%,100%{
+
+transform:scale(1);
+
+opacity:.7;
+
+}
+
+50%{
+
+transform:scale(1.12);
+
+opacity:1;
+
+}
+
+}
+
+@keyframes float{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+}
+/* =========================
+   BUTTONS
+========================= */
 
 .menu-btn{
+
     width:100%;
-    margin:16px 0;
-    padding:20px;
-    background:#111;
-    color:white;
-    border:1px solid rgba(255,0,0,.4);
-    border-radius:18px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
-    font-size:18px;
+
+    margin:16px 0;
+
+    padding:20px 22px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,0,0,.28);
+
+    background:rgba(18,18,18,.88);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
     cursor:pointer;
-    transition:.3s;
-    box-shadow:0 0 18px rgba(255,0,0,.12);
+
+    transition:.35s;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+
+    inset 0 0 0 rgba(255,0,0,0),
+
+    0 0 18px rgba(255,0,0,.08);
+
 }
 
 .menu-btn:hover{
+
     transform:translateY(-3px);
-    border-color:red;
+
+    border-color:#ff3030;
+
     box-shadow:
-    0 0 15px red,
-    0 0 35px rgba(255,0,0,.4);
+
+    0 0 18px rgba(255,0,0,.30),
+
+    0 0 40px rgba(255,0,0,.18);
+
 }
 
-.menu-btn span{
-    font-size:28px;
-    color:red;
+.menu-btn:active{
+
+    transform:scale(.98);
+
 }
+
+.menu-btn span:last-child{
+
+    font-size:28px;
+
+    color:#ff3030;
+
+    transition:.3s;
+
+}
+
+.menu-btn:hover span:last-child{
+
+    transform:translateX(6px);
+
+}
+
+/* FOOTER */
 
 .footer{
-    margin-top:45px;
+
+    margin-top:42px;
+
     text-align:center;
-    color:#aa0000;
-    letter-spacing:4px;
-    font-size:13px;
+
+    color:#666;
+
+    font-size:12px;
+
+    letter-spacing:5px;
+
+    opacity:.85;
+
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+
+    width:0;
+
+}
+
+/* MOBILE */
+
+@media(max-width:430px){
+
+.logo{
+
+font-size:44px;
+
+}
+
+.subtitle{
+
+font-size:13px;
+
+letter-spacing:4px;
+
+}
+
+.hero img{
+
+width:205px;
+
+}
+
+.menu-btn{
+
+font-size:15px;
+
+padding:18px;
+
+}
+
+.status-card{
+
+padding:15px;
+
+}
+
+}
+
+/* EXTRA FX */
+
+.container{
+
+animation:fadeUp .9s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(25px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+width:260px;
+
+height:260px;
+
+border-radius:50%;
+
+border:1px solid rgba(255,0,0,.12);
+
+animation:ring 6s linear infinite;
+
+}
+
+@keyframes ring{
+
+0%{
+
+transform:scale(.9);
+
+opacity:.1;
+
+}
+
+50%{
+
+transform:scale(1);
+
+opacity:.3;
+
+}
+
+100%{
+
+transform:scale(1.15);
+
+opacity:0;
+
+}
+
+}
+
+.logo::after{
+
+content:"_";
+
+color:#ff0000;
+
+margin-left:4px;
+
+animation:blink .8s infinite;
+
+}
+
+@keyframes blink{
+
+50%{
+
+opacity:0;
+
+}
+
+}
+
+.status-card{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.status-card::before{
+
+content:"";
+
+position:absolute;
+
+left:-120%;
+
+top:0;
+
+width:60%;
+
+height:100%;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+transparent,
+
+rgba(255,255,255,.08),
+
+transparent
+
+);
+
+animation:shine 5s infinite;
+
+}
+
+@keyframes shine{
+
+100%{
+
+left:160%;
+
+}
+
 }
