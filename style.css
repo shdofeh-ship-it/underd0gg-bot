@@ -207,10 +207,12 @@ box-shadow:0 0 0 rgba(255,0,0,.8);
 
 /* LOGO */
 
-.logo{
-
-    margin-top:12px;
-    margin-bottom:8px;
+.logo {
+    margin-top: 12px;
+    margin-bottom: 6px;  /* Было 8px — уменьшил для плотности */
+    text-align: center;
+    /* ... остальные свойства остаются без изменений ... */
+}
    
     text-align:center;
 
