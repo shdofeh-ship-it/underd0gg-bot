@@ -81,4 +81,7 @@ No Limits.
 </pre>
 """
 
-    await message.answer(text)
+    await message.answer(
+    text,
+    reply_markup=main_menu
+)
