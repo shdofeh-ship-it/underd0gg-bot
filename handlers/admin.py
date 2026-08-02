@@ -1,26 +1,32 @@
-from aiogram import Router, F
+from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 import aiosqlite
 import random
 
-router = Router()
 from config import ADMIN_IDS
+
+router = Router()
+
+DB_NAME = "underd0gg.db"
+
+
 def is_admin(user_id: int) -> bool:
     return user_id in ADMIN_IDS
-DB_NAME = "underd0gg.db"
 
 
 @router.message(Command("create_giveaway"))
 async def create_giveaway(message: Message):
     if not is_admin(message.from_user.id):
-    await message.answer("⛔ Доступ запрещён.")
-    return
+        await message.answer("⛔ Доступ запрещён.")
+        return
+
     args = message.text.replace("/create_giveaway", "").strip()
 
     if "|" not in args:
         await message.answer(
-            "Использование:\n/create_giveaway Название | Приз"
+            "Использование:\n"
+            "/create_giveaway Название|Приз"
         )
         return
 
@@ -28,7 +34,10 @@ async def create_giveaway(message: Message):
 
     async with aiosqlite.connect(DB_NAME) as db:
         await db.execute(
-            "INSERT INTO giveaways(title, prize) VALUES(?, ?)",
+            """
+            INSERT INTO giveaways(title, prize, active)
+            VALUES (?, ?, 1)
+            """,
             (title.strip(), prize.strip())
         )
         await db.commit()
@@ -39,11 +48,15 @@ async def create_giveaway(message: Message):
 @router.message(Command("list_giveaways"))
 async def list_giveaways(message: Message):
     if not is_admin(message.from_user.id):
-    await message.answer("⛔ Доступ запрещён.")
-    return
+        await message.answer("⛔ Доступ запрещён.")
+        return
+
     async with aiosqlite.connect(DB_NAME) as db:
         cursor = await db.execute(
-            "SELECT id, title, prize, active FROM giveaways"
+            """
+            SELECT id, title, prize, active
+            FROM giveaways
+            """
         )
         giveaways = await cursor.fetchall()
 
@@ -61,24 +74,29 @@ async def list_giveaways(message: Message):
 
 
 @router.message(Command("finish_giveaway"))
-async def finish(message: Message):
+async def finish_giveaway(message: Message):
     if not is_admin(message.from_user.id):
-    await message.answer("⛔ Доступ запрещён.")
-    return
+        await message.answer("⛔ Доступ запрещён.")
+        return
+
     args = message.text.replace("/finish_giveaway", "").strip()
 
     if not args.isdigit():
         await message.answer(
-            "Использование:\n/finish_giveaway ID"
+            "Использование:\n"
+            "/finish_giveaway ID"
         )
         return
 
     giveaway_id = int(args)
 
     async with aiosqlite.connect(DB_NAME) as db:
-
         cursor = await db.execute(
-            "SELECT user_id FROM participants WHERE giveaway_id=?",
+            """
+            SELECT user_id
+            FROM participants
+            WHERE giveaway_id = ?
+            """,
             (giveaway_id,)
         )
         users = await cursor.fetchall()
@@ -90,12 +108,19 @@ async def finish(message: Message):
         winner = random.choice(users)[0]
 
         await db.execute(
-            "INSERT INTO winners(giveaway_id,user_id) VALUES(?,?)",
+            """
+            INSERT INTO winners(giveaway_id, user_id)
+            VALUES (?, ?)
+            """,
             (giveaway_id, winner)
         )
 
         await db.execute(
-            "UPDATE giveaways SET active=0 WHERE id=?",
+            """
+            UPDATE giveaways
+            SET active = 0
+            WHERE id = ?
+            """,
             (giveaway_id,)
         )
 
@@ -103,4 +128,4 @@ async def finish(message: Message):
 
     await message.answer(
         f"🏆 Победитель:\n<code>{winner}</code>"
-      )
+    )
