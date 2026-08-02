@@ -1,32 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    console.log("UNDERDOGG SYSTEM ONLINE");
+    document.body.style.opacity = "0";
 
+    setTimeout(() => {
+        document.body.style.transition = "opacity 1s";
+        document.body.style.opacity = "1";
+    }, 100);
 
     const buttons = document.querySelectorAll(".menu-btn");
-
 
     buttons.forEach(button => {
 
         button.addEventListener("click", () => {
 
-            button.style.transform = "scale(0.95)";
+            button.style.transform = "scale(0.96)";
 
             setTimeout(() => {
-
                 button.style.transform = "scale(1)";
-
-            },150);
-
-
-            console.log(
-                "ACCESS:",
-                button.innerText
-            );
+            }, 120);
 
         });
 
     });
-
 
 });
