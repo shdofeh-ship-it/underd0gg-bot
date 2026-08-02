@@ -10,7 +10,7 @@ from database import init_db
 
 # Импорт роутеров (пока подключаем только start)
 from handlers.start import router as start_router
-
+from handlers.menu import router as menu_router
 
 async def main():
     # Логирование
@@ -35,6 +35,7 @@ async def main():
 
     # Подключаем роутеры
     dp.include_router(start_router)
+dp.include_router(menu_router)
 
     print("UNDERD0GG BOT ONLINE")
 
