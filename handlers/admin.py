@@ -5,12 +5,17 @@ import aiosqlite
 import random
 
 router = Router()
-
+from config import ADMIN_IDS
+def is_admin(user_id: int) -> bool:
+    return user_id in ADMIN_IDS
 DB_NAME = "underd0gg.db"
 
 
 @router.message(Command("create_giveaway"))
 async def create_giveaway(message: Message):
+    if not is_admin(message.from_user.id):
+    await message.answer("⛔ Доступ запрещён.")
+    return
     args = message.text.replace("/create_giveaway", "").strip()
 
     if "|" not in args:
@@ -33,6 +38,9 @@ async def create_giveaway(message: Message):
 
 @router.message(Command("list_giveaways"))
 async def list_giveaways(message: Message):
+    if not is_admin(message.from_user.id):
+    await message.answer("⛔ Доступ запрещён.")
+    return
     async with aiosqlite.connect(DB_NAME) as db:
         cursor = await db.execute(
             "SELECT id, title, prize, active FROM giveaways"
@@ -54,6 +62,9 @@ async def list_giveaways(message: Message):
 
 @router.message(Command("finish_giveaway"))
 async def finish(message: Message):
+    if not is_admin(message.from_user.id):
+    await message.answer("⛔ Доступ запрещён.")
+    return
     args = message.text.replace("/finish_giveaway", "").strip()
 
     if not args.isdigit():
