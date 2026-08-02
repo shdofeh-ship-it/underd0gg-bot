@@ -36,6 +36,7 @@ async def main():
     dp.include_router(menu_router)
     dp.include_router(profile_router)
     dp.include_router(giveaways_router)
+    dp.include_router(promo_router)
     print("UNDERD0GG BOT ONLINE")
 
     await dp.start_polling(bot)
