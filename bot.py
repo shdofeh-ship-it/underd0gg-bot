@@ -12,7 +12,7 @@ from handlers.start import router as start_router
 from handlers.menu import router as menu_router
 from handlers.profile import router as profile_router
 from handlers.giveaways import router as giveaways_router
-
+from handlers.promo import router as promo_router
 async def main():
     logging.basicConfig(
         level=logging.INFO,
