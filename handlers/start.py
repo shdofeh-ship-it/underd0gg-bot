@@ -1,5 +1,5 @@
 import random
-from datetime import datetime
+import datetime
 
 import aiosqlite
 
@@ -9,34 +9,30 @@ from aiogram.types import Message
 
 from database import DB_NAME
 from keyboards import main_menu
+
 router = Router()
 
 
-def generate_shadow_id():
-    chars = "0123456789ABCDEF"
-    return "SHD-" + "".join(random.choice(chars) for _ in range(4))
-
 @router.message(CommandStart())
 async def start(message: Message):
-
-    user = message.from_user
 
     async with aiosqlite.connect(DB_NAME) as db:
 
         cursor = await db.execute(
             "SELECT shadow_id FROM users WHERE user_id=?",
-            (user.id,)
+            (message.from_user.id,)
         )
 
-        row = await cursor.fetchone()
+        user = await cursor.fetchone()
 
-        if row is None:
+        if not user:
 
-            shadow_id = generate_shadow_id()
+            shadow_id = f"SHD-{random.randint(1000,9999)}"
 
             await db.execute(
                 """
-                INSERT INTO users(
+                INSERT INTO users
+                (
                     user_id,
                     username,
                     shadow_id,
@@ -45,43 +41,41 @@ async def start(message: Message):
                 VALUES(?,?,?,?)
                 """,
                 (
-                    user.id,
-                    user.username,
+                    message.from_user.id,
+                    message.from_user.username,
                     shadow_id,
-                    datetime.utcnow().isoformat()
+                    datetime.datetime.now().strftime("%d.%m.%Y")
                 )
             )
 
             await db.commit()
 
         else:
-            shadow_id = row[0]
+            shadow_id = user[0]
 
     text = f"""
 <pre>
-██████████████████
+██████████████████████
 
-UNDERD0GG
-
-SYSTEM ONLINE
-
-Identity:
-UNKNOWN
-
-Shadow ID:
-{shadow_id}
-
-STATUS:
-ACCESS GRANTED
+      UNDERD0GG
 
 No Face.
 No Limits.
 
-██████████████████
+██████████████████████
+
+Shadow ID:
+{shadow_id}
+
+SYSTEM STATUS:
+ONLINE
+
+Nobody Knows.
+Everybody Watches.
 </pre>
 """
 
     await message.answer(
-    text,
-    reply_markup=main_menu
+        text,
+        reply_markup=main_menu()
     )
