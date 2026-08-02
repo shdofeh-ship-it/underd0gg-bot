@@ -1,49 +1,21 @@
-import aiosqlite
-
 from aiogram import Router, F
 from aiogram.types import Message
-
-from database import DB_NAME
 
 router = Router()
 
 
-@router.message(F.text == "👤 Мой профиль")
+@router.message(F.text == "👤 Профиль")
 async def profile(message: Message):
-    async with aiosqlite.connect(DB_NAME) as db:
-        cursor = await db.execute(
-            """
-            SELECT shadow_id, wins, participations
-            FROM users
-            WHERE user_id=?
-            """,
-            (message.from_user.id,)
-        )
-
-        user = await cursor.fetchone()
-
-    if not user:
-        await message.answer("Профиль не найден. Используйте /start")
-        return
-
-    shadow_id, wins, participations = user
-
     await message.answer(
-        f"""
-<pre>
-UNDERD0GG PROFILE
+        """
+👤 <b>ВАШ ПРОФИЛЬ</b>
 
-Shadow ID:
-{shadow_id}
+🆔 ID: <code>{}</code>
 
-Участий:
-{participations}
+🎫 Билетов: <b>0</b>
 
-Побед:
-{wins}
+👥 Приглашено: <b>0</b>
 
-STATUS:
-SHADOW MEMBER
-</pre>
-"""
+🏆 Уровень: <b>SHADOW MEMBER</b>
+""".format(message.from_user.id)
     )
