@@ -23,10 +23,10 @@ async def init_db():
         await db.execute("""
         CREATE TABLE IF NOT EXISTS giveaways(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT,
-            prize TEXT,
+            title TEXT NOT NULL,
+            prize TEXT NOT NULL,
             active INTEGER DEFAULT 1,
-            created_at TEXT
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
         )
         """)
 
@@ -46,7 +46,7 @@ async def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             giveaway_id INTEGER,
             user_id INTEGER,
-            won_at TEXT
+            won_at TEXT DEFAULT CURRENT_TIMESTAMP
         )
         """)
 
@@ -55,9 +55,9 @@ async def init_db():
         CREATE TABLE IF NOT EXISTS promo_codes(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             code TEXT UNIQUE,
-            reward INTEGER,
+            reward TEXT,
             max_uses INTEGER,
-            used INTEGER DEFAULT 0
+            used_count INTEGER DEFAULT 0
         )
         """)
 
@@ -65,9 +65,9 @@ async def init_db():
         await db.execute("""
         CREATE TABLE IF NOT EXISTS used_promos(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            promo_id INTEGER,
             user_id INTEGER,
-            promo_code TEXT,
-            UNIQUE(user_id, promo_code)
+            UNIQUE(promo_id, user_id)
         )
         """)
 
