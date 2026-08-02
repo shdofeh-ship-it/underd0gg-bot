@@ -13,9 +13,8 @@ router = Router()
 
 
 def generate_shadow_id():
-    chars = string.hexdigits.upper().replace("X", "")[:16]
+    chars = "0123456789ABCDEF"
     return "SHD-" + "".join(random.choice(chars) for _ in range(4))
-
 
 @router.message(CommandStart())
 async def start(message: Message):
