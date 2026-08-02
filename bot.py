@@ -13,6 +13,7 @@ from handlers.menu import router as menu_router
 from handlers.profile import router as profile_router
 from handlers.giveaways import router as giveaways_router
 from handlers.promo import router as promo_router
+from handlers.admin import router as admin_router
 async def main():
     logging.basicConfig(
         level=logging.INFO,
@@ -37,6 +38,7 @@ async def main():
     dp.include_router(profile_router)
     dp.include_router(giveaways_router)
     dp.include_router(promo_router)
+    dp.include_router(admin_router)
     print("UNDERD0GG BOT ONLINE")
 
     await dp.start_polling(bot)
