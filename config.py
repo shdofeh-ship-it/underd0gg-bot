@@ -9,9 +9,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # ID администраторов (через запятую)
 ADMIN_IDS = [
-    int(x)
-    for x in os.getenv("ADMIN_IDS", "").split(",")
-    if x.strip()
+    1053853724    
 ]
 
 # Ссылки (пока заглушки)
