@@ -1,17 +1,18 @@
 import os
 from dotenv import load_dotenv
 
-# Загружаем переменные окружения
+# Загружаем переменные из файла .env
 load_dotenv()
 
-# Токен бота
-BOT_TOKEN = "8980798606:AAHAnaLYx75-0FeuuaHUBywcIt7E5wKETJs"
-# ID администраторов (через запятую)
+# Теперь токен берется из переменных окружения, а не из кода!
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+# ID администраторов
 ADMIN_IDS = [
     1053853724    
 ]
 
-# Ссылки (пока заглушки)
+# Ссылки
 KICK_URL = "https://kick.com/underd0gg"
 
 YOUTUBE_SHORTS = [
