@@ -372,6 +372,41 @@ transform:translateY(-8px);
 
 .menu-btn{
 
+   .menu-btn:hover{
+    transform: translateY(-4px);
+    border-color:#ff3030;
+    box-shadow:
+        0 0 15px rgba(255,0,0,.35),
+        inset 0 0 10px rgba(255,0,0,.12);
+}
+
+.menu-btn:active{
+    transform: scale(.98);
+}
+
+.menu-btn-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.menu-icon{
+    width:42px;
+    text-align:center;
+    font-size:32px;
+}
+
+.menu-text{
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+.menu-arrow{
+    font-size:28px;
+    color:#ff5555;
+}
+
     width:100%;
 
     display:flex;
