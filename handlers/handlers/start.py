@@ -8,7 +8,7 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 
 from database import DB_NAME
-
+from keyboards import main_menu
 router = Router()
 
 
