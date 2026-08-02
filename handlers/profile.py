@@ -1,21 +1,60 @@
+import aiosqlite
+
 from aiogram import Router, F
-from aiogram.types import Message
+from aiogram.types import CallbackQuery
+
+from database import DB_NAME
+from keyboards import back_keyboard
 
 router = Router()
 
 
-@router.message(F.text == "👤 Профиль")
-async def profile(message: Message):
-    await message.answer(
-        """
-👤 <b>ВАШ ПРОФИЛЬ</b>
+@router.callback_query(F.data == "profile")
+async def profile(callback: CallbackQuery):
 
-🆔 ID: <code>{}</code>
+    async with aiosqlite.connect(DB_NAME) as db:
 
-🎫 Билетов: <b>0</b>
+        cursor = await db.execute(
+            """
+            SELECT shadow_id, wins, participations
+            FROM users
+            WHERE user_id=?
+            """,
+            (callback.from_user.id,)
+        )
 
-👥 Приглашено: <b>0</b>
+        user = await cursor.fetchone()
 
-🏆 Уровень: <b>SHADOW MEMBER</b>
-""".format(message.from_user.id)
+    if not user:
+        await callback.answer("Профиль не найден.", show_alert=True)
+        return
+
+    shadow_id, wins, participations = user
+
+    await callback.message.edit_text(
+        f"""
+<pre>
+██████████████████████
+
+UNDERD0GG PROFILE
+
+██████████████████████
+
+Shadow ID:
+{shadow_id}
+
+🎟 Участий:
+{participations}
+
+🏆 Побед:
+{wins}
+
+STATUS:
+SHADOW MEMBER
+
+No Face.
+No Limits.
+</pre>
+""",
+        reply_markup=back_keyboard()
     )
